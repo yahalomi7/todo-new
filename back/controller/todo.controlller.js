@@ -1,7 +1,7 @@
 import Todo from '../schema/todo.schema.js'; // Include .js if using ES modules
 
 // GET: Fetch all todos
-export const getTodo = async (req, res) => {
+export const getTodos = async (req, res) => {
   try {
     const todos = await Todo.find();
     res.status(200).json(todos);

@@ -5,6 +5,11 @@ username : {
     type :String,
     require:true
 },
+email:{
+  type: String,
+  require:true,
+  unique: true
+},
 password:{
     type: String,
     require:true
@@ -15,4 +20,4 @@ password:{
 
 const User = mongoose.model('User', userSchema);
 
-export default user; 
+export default User; 
