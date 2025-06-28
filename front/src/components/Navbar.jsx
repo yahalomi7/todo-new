@@ -5,6 +5,8 @@ import { PiStackPlusThin } from "react-icons/pi";
 import { useColorMode } from '@chakra-ui/react'
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
+import { CiLogin } from "react-icons/ci";
+
 
 
 
@@ -27,7 +29,8 @@ const Navbar = () => {
           >
             <Link to={'/'} > DESK Todo-list</Link>
            
-          </Text> <HStack spacing={2} alignItems={'center'}>
+          </Text> 
+          <HStack spacing={2} alignItems={'center'}>
                <Link to={'/create'}>
                <Button>
                     <PiStackPlusThin fontSize={20}/>
@@ -37,6 +40,13 @@ const Navbar = () => {
                 {colorMode === 'light' ? <IoMoon /> : <LuSun />}
                </Button>
             </HStack>
+            <HStack spacing={2} alignItems={'center'}>
+               <Link to={'/login'}>
+               <Button>
+                    <CiLogin fontSize={20}/>
+               </Button>
+               </Link>
+           </HStack>
         </Flex>
       </Container>
     </div>
