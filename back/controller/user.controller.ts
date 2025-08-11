@@ -1,7 +1,8 @@
-import User from '../schema/user.schema.js'; // Ensure .js extension if using ES modules
+import express from 'express';
+import { Request, Response } from 'express';
+import User from '../schema/user.schema.js'; 
 
-// Get all users
-export const getUser = async (req, res) => {
+export const getUser = async (req:Request, res:Response) :Promise<void> => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -9,8 +10,8 @@ export const getUser = async (req, res) => {
     res.status(500).json({ message: 'Error fetching users', error: err.message });
   }
 };
-//get user by id
-export const getUserById = async (req, res) => {
+
+export const getUserById = async (req:Request, res:Response) :Promise<void> => {
   const { id } = req.params;
 
   try {
@@ -24,9 +25,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
-
-// Add a new user
-export const addUser = async (req, res) => {
+export const addUser = async (req:Request, res:Response) :Promise<void> => {
   const { username,email, password } = req.body;
   console.log('Incoming body:', req.body);
 
@@ -48,7 +47,7 @@ export const addUser = async (req, res) => {
       return res.status(409).json({ message: 'Username already exists' });
     }
 
-    const newUser = new User({ username, password });
+    const newUser = new User({ username, email, password });
     await newUser.save();
 
     res.status(201).json({ message: 'User added successfully', user: newUser });
@@ -56,7 +55,7 @@ export const addUser = async (req, res) => {
     res.status(500).json({ message: 'Error adding user', error: err.message });
   }
 };
-export const updateUser = async (req, res) => {
+export const updateUser =async (req:Request, res:Response) :Promise<void>  => {
   const { id } = req.params;
   const {username,email,password } = req.body;
   if (!username || username.trim() === '') {
@@ -70,7 +69,7 @@ export const updateUser = async (req, res) => {
   }
     try {
         const updatedUser = await User.findByIdAndUpdate(
-        {username,email,password}, { new: true});
+        id, { username, email, password }, { new: true });
         if (!updatedUser) {
           return res.status(404).json({ message: 'User not found' });
         }
@@ -79,8 +78,8 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ message: 'Error updating user', error: err.message });
         }
     }
-// Delete user by ID
-export const deleteUser = async (req, res) => {
+
+export const deleteUser = async (req:Request, res:Response) :Promise<void> => {
   const { id } = req.params;
 
   try {

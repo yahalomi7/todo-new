@@ -1,7 +1,7 @@
-import Todo from '../schema/todo.schema.js'; // Include .js if using ES modules
+import { Request, Response } from 'express';
+import Todo from '../schema/todo.schema.js'; 
 
-// GET: Fetch all todos
-export const getTodos = async (req, res) => {
+export const getTodos= async (req:Request, res:Response):Promise<void> => {
   try {
     const todos = await Todo.find();
     res.status(200).json(todos);
@@ -10,7 +10,6 @@ export const getTodos = async (req, res) => {
   }
 };
 
-// POST: Add new todo
 export const addTodo = async (req, res) => {
   const { title, completed } = req.body;
 
@@ -32,8 +31,7 @@ export const addTodo = async (req, res) => {
   }
 };
 
-// PUT: Update todo by ID
-export const updateTodo = async (req, res) => {
+export const updateTodo = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const { title, completed } = req.body;
 
@@ -62,8 +60,7 @@ export const updateTodo = async (req, res) => {
   }
 };
 
-// DELETE: Remove todo by ID
-export const deleteTodo = async (req, res) => {
+export const deleteTodo = async (req: Request, res: Response): Promise<void>=> {
   const { id } = req.params;
 
   try {
