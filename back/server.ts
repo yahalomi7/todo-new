@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './dbConnection';
 import userRout from './routs/user.rout';
 import todoRout from './routs/todo.rout';
+import cors from 'cors';
 
 
 dotenv.config();
@@ -13,11 +14,13 @@ const port= process.env.PORT || 8080;
 
 app.use(express.json());
 
-app.post('/test', (req, res) => {
-  console.log('Test body:', req.body);
-  res.send(req.body);
-});
-
+// app.post('/test', (req, res) => {
+//   console.log('Test body:', req.body);
+//   res.send(req.body);
+// });
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
 app.use('/api/users', userRout);
 app.use('/api/todo', todoRout);
 

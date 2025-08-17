@@ -18,7 +18,7 @@ export default function Navbar() {
     () =>
       createTheme({
         palette: {
-          mode: darkMode ? 'dark' : 'light',
+          mode: darkMode ? 'light' : 'dark',
         },
       }),
     [darkMode]
@@ -30,10 +30,12 @@ export default function Navbar() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ backgroundColor: darkMode ? '#333' : '#388adcff' }}>
+        <AppBar position="static" sx={{ backgroundColor: darkMode ? '#388adcff' : '#000000ff' }}>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              ks soccer
+              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                desk todo-list
+              </Link>
             </Typography>
 
             

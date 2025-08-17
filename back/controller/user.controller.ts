@@ -1,17 +1,16 @@
-import express from 'express';
 import { Request, Response } from 'express';
 import User from '../schema/user.schema.js'; 
 
-export const getUser = async (req:Request, res:Response) :Promise<void> => {
+export const getUser = async (req:Request, res:Response) :Promise<any> => {
   try {
     const users = await User.find();
     res.status(200).json(users);
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ message: 'Error fetching users', error: err.message });
   }
 };
 
-export const getUserById = async (req:Request, res:Response) :Promise<void> => {
+export const getUserById = async (req:Request, res:Response) :Promise<any> => {
   const { id } = req.params;
 
   try {
@@ -20,12 +19,12 @@ export const getUserById = async (req:Request, res:Response) :Promise<void> => {
       return res.status(404).json({ message: 'User not found' });
     }
     res.status(200).json(user);
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ message: 'Error fetching user', error: err.message });
   }
 };
 
-export const addUser = async (req:Request, res:Response) :Promise<void> => {
+export const addUser = async (req:Request, res:Response) :Promise<any> => {
   const { username,email, password } = req.body;
   console.log('Incoming body:', req.body);
 
@@ -51,11 +50,11 @@ export const addUser = async (req:Request, res:Response) :Promise<void> => {
     await newUser.save();
 
     res.status(201).json({ message: 'User added successfully', user: newUser });
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ message: 'Error adding user', error: err.message });
   }
 };
-export const updateUser =async (req:Request, res:Response) :Promise<void>  => {
+export const updateUser =async (req:Request, res:Response) :Promise<any>  => {
   const { id } = req.params;
   const {username,email,password } = req.body;
   if (!username || username.trim() === '') {
@@ -74,12 +73,12 @@ export const updateUser =async (req:Request, res:Response) :Promise<void>  => {
           return res.status(404).json({ message: 'User not found' });
         }
         res.status(200).json({ message: 'User updated successfully', user: updatedUser });
-      } catch (err) {
+      } catch (err: any) {
         res.status(500).json({ message: 'Error updating user', error: err.message });
         }
     }
 
-export const deleteUser = async (req:Request, res:Response) :Promise<void> => {
+export const deleteUser = async (req:Request, res:Response) :Promise<any> => {
   const { id } = req.params;
 
   try {
@@ -90,7 +89,7 @@ export const deleteUser = async (req:Request, res:Response) :Promise<void> => {
     }
 
     res.status(200).json({ message: 'User deleted successfully', user: deletedUser });
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ message: 'Error deleting user', error: err.message });
   }
 };
