@@ -5,7 +5,7 @@ import  {
   addUser,
   updateUser,
   deleteUser
-} from '../controller/user.controller.js';
+} from '../controller/user.controller.ts';
 const userRout = express.Router();
 
 userRout.get('/', getUser);

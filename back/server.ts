@@ -1,8 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { connectDB } from './dbConnection.js';
-import userRout from './routs/user.rout.js';
-import todoRout from './routs/todo.rout.js';
+import { connectDB } from './dbConnection';
+import userRout from './routs/user.rout';
+import todoRout from './routs/todo.rout';
+
 
 dotenv.config();
 connectDB();

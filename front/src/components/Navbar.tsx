@@ -8,6 +8,8 @@ import { MdLogin, MdDarkMode, MdLightMode } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { IoCreate } from "react-icons/io5";
+
 
 export default function Navbar() {
   const [darkMode, setDarkMode] = React.useState(true);
@@ -34,7 +36,16 @@ export default function Navbar() {
               ks soccer
             </Typography>
 
-            {/* Toggle Dark Mode */}
+            
+            <IconButton
+              component={Link}
+              to="/create-todo"
+              color="inherit"
+              aria-label="create todo">
+              <IoCreate size={24}/>
+            </IconButton>
+
+
             <IconButton
               onClick={toggleDarkMode}
               color="inherit"
