@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import Navbar from '../components/Navbar';
 
-export default function RegisterPage() {
+export default function LoginPage() {
 
   return (
     <>
@@ -21,15 +21,17 @@ export default function RegisterPage() {
           backgroundColor: '#f5f5f5',
         }}
       >
-<TextField id="Username" label="Username" variant="outlined" />
 <TextField id="Email" label="Email" variant="outlined" />
 <TextField id="Passsword" label="Passsword" variant="outlined" />
 <Button>
-        Register
+        Login
       </Button>
       <Button variant="outlined" color="primary" href="/login">
-        Already have an account? Login
+        Don't have an account? Login
       </Button>
+
+
+
       </Container>
     </>
   );

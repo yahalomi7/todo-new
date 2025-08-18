@@ -35,14 +35,13 @@ export default function HomePage() {
         {/* Text Input */}
         <TextField
   label="New Todo"
-  color="primary"
   variant="outlined"
   value={newTitle}
   onChange={(e) => setNewTitle(e.target.value)}
   sx={{
     width: '300px',
-    input: { color: 'white' },             // input text
-    label: { color: 'white' },             // label text
+    input: { color: '#a1bcf0' },             // input text
+    label: { color: '#a1bcf0' },             // label text
     fieldset: { borderColor: 'white' },    // border color (optional)
   }}
 />

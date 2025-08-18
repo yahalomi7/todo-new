@@ -9,15 +9,17 @@ import { MdDelete } from "react-icons/md";
 export default function HomePage() {
   const [todos, setTodos] = React.useState<Todo[]>([]);
 
-  const handleClick = async () => {
-    try {
-      const data = await fetchingallTodos();
-      setTodos(data);
-      console.error("Failed to delete todo");
-    } catch (error) {
-      console.error('Error fetching todos:', error);
-    }
-  };
+  React.useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const fetchedTodos = await fetchingallTodos();
+        setTodos(fetchedTodos);
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
+    };
+    fetchTodos();
+  }, []);
 
   const handleDelete = async (id: string) => {
     try {
@@ -31,20 +33,13 @@ export default function HomePage() {
     <>
     <Navbar />
     <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      <h1>Welcome to the Todo App</h1>
+      <h1>{todos.length===0?`insert new todos`:`The todos there left`}</h1>
            <ul >
      {todos.map(todo => (
-       <li key={todo._id} style={{ padding: '20px 40px', fontSize: '16px' ,listStyle: 'none'}}>{todo.title}  <button onClick={() => handleDelete(todo._id)} style={{ padding: '5px 10px', fontSize: '16px' }}><MdDelete /></button></li>
+       <li key={todo._id} style={{ padding: '20px 40px', fontSize: '16px' ,listStyle: 'none',color:'#a1bcf0'}}>{todo.title}  <button onClick={() => handleDelete(todo._id)} style={{ padding: '5px 10px', fontSize: '16px' }}><MdDelete /></button></li>
      ))}
-   
    </ul>
-   
-        <button
-          onClick={handleClick}
-          
-        >
-          Fetch Todos
-        </button>
+
     </Container>
     </>
   )

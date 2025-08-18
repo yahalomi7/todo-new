@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 
 export default function NotFoundPage() {
   return (
