@@ -5,6 +5,8 @@ import { Button } from '@mui/material';
 import Navbar from '../components/Navbar';
 
 export default function LoginPage() {
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
 
   return (
     <>
@@ -18,19 +20,23 @@ export default function LoginPage() {
           mt: 5,
           gap: 3,
           padding: 2,
-          backgroundColor: '#f5f5f5',
+         
         }}
       >
-<TextField id="Email" label="Email" variant="outlined" />
-<TextField id="Passsword" label="Passsword" variant="outlined" />
-<Button>
-        Login
-      </Button>
-      <Button variant="outlined" color="primary" href="/login">
-        Don't have an account? Login
-      </Button>
-
-
+<TextField id="Email" label="Email" variant="outlined" 
+  sx={{
+    width: '600px',
+    input: { color: '#a1bcf0' },           
+    label: { color: '#a1bcf0' },             
+    fieldset: { borderColor: 'white' },   
+  }}/>
+<TextField id="Passsword" label="Passsword" variant="outlined" 
+  sx={{
+    width: '600px',
+    input: { color: '#a1bcf0' },           
+    label: { color: '#a1bcf0' },             
+    fieldset: { borderColor: 'white' },   
+  }}/>
 
       </Container>
     </>

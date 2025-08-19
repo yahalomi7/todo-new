@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container } from '@mui/material';
 import Navbar from '../components/Navbar';
-import { fetchingallTodos, deleteTodo} from '../store/Todo'; // Adjust the path as needed
-import type { Todo } from '../store/Todo.ts' // Adjust the path as needed
+import { fetchingallTodos, deleteTodo} from '../store/Todo'; 
+import type { Todo } from '../store/Todo.ts' 
 import { MdDelete } from "react-icons/md";
 
 

@@ -41,7 +41,13 @@ export const addUser = async (req:Request, res:Response) :Promise<any> => {
   }
 
   try {
-    const existingUser = await User.findOne({ username });
+  const existingUser = await User.findOne({
+  $or: [
+    { username },
+    { email }
+  ]
+});
+
     if (existingUser) {
       return res.status(409).json({ message: 'Username already exists' });
     }

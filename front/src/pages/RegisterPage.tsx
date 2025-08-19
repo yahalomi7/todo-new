@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import { Container } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Container, TextField, Button } from '@mui/material';
 import Navbar from '../components/Navbar';
+import { registerUser } from '../store/User';
 
 export default function RegisterPage() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleRegister = async () => {
+    try {
+      const newUser = await registerUser({ username, email, password });
+      console.log("User registered successfully:", newUser);
+      // Optionally redirect or show success message here
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
 
   return (
     <>
@@ -18,18 +30,58 @@ export default function RegisterPage() {
           mt: 5,
           gap: 3,
           padding: 2,
-          backgroundColor: '#f5f5f5',
         }}
       >
-<TextField id="Username" label="Username" variant="outlined" />
-<TextField id="Email" label="Email" variant="outlined" />
-<TextField id="Passsword" label="Passsword" variant="outlined" />
-<Button>
-        Register
-      </Button>
-      <Button variant="outlined" color="primary" href="/login">
-        Already have an account? Login
-      </Button>
+        <TextField
+          id="Username"
+          label="Username"
+          variant="outlined"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          sx={{
+            width: '600px',
+            input: { color: '#a1bcf0' },
+            label: { color: '#a1bcf0' },
+            fieldset: { borderColor: 'white' },
+          }}
+        />
+
+        <TextField
+          id="Email"
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          sx={{
+            width: '600px',
+            input: { color: '#a1bcf0' },
+            label: { color: '#a1bcf0' },
+            fieldset: { borderColor: 'white' },
+          }}
+        />
+
+        <TextField
+          id="Password"
+          label="Password"
+          type="password"
+          variant="outlined"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          sx={{
+            width: '600px',
+            input: { color: '#a1bcf0' },
+            label: { color: '#a1bcf0' },
+            fieldset: { borderColor: 'white' },
+          }}
+        />
+
+        <Button variant="contained" onClick={handleRegister}>
+          Register
+        </Button>
+
+        <Button variant="outlined" color="primary" href="/login">
+          Already have an account? Login
+        </Button>
       </Container>
     </>
   );

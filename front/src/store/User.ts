@@ -8,12 +8,12 @@ export interface User {
 }
 
 const api = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: "http://localhost:8080/api/users",
 });
 
 export const registerUser = async (userData: Omit<User, 'id'>): Promise<User> => {
     try {
-        const response = await api.post<User>("/register", userData);
+        const response = await api.post<User>("/", userData);
         if (response.status === 201) {
             return response.data;
         }

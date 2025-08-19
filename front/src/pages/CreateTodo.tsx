@@ -32,7 +32,7 @@ export default function HomePage() {
           mt: 4,
         }}
       >
-        {/* Text Input */}
+       
         <TextField
   label="New Todo"
   variant="outlined"
@@ -40,14 +40,14 @@ export default function HomePage() {
   onChange={(e) => setNewTitle(e.target.value)}
   sx={{
     width: '300px',
-    input: { color: '#a1bcf0' },             // input text
-    label: { color: '#a1bcf0' },             // label text
-    fieldset: { borderColor: 'white' },    // border color (optional)
+    input: { color: '#a1bcf0' },           
+    label: { color: '#a1bcf0' },             
+    fieldset: { borderColor: 'white' },   
   }}
 />
 
 
-        {/* Create Button */}
+      
         <Button
           variant="contained"
           color="primary"
@@ -57,7 +57,7 @@ export default function HomePage() {
           Create Todo
         </Button>
 
-        {/* Preview List (optional) */}
+       
         <ul style={{ marginTop: '2rem', color: 'white' }}>
           {todos.map((todo, index) => (
   <li key={todo._id || index}>{todo.title}</li>
