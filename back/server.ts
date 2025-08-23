@@ -4,6 +4,7 @@ import { connectDB } from './dbConnection';
 import userRout from './routs/user.rout';
 import todoRout from './routs/todo.rout';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 
 dotenv.config();
@@ -13,6 +14,7 @@ const app = express();
 const port= process.env.PORT || 8080;
 
 app.use(express.json());
+app.use(cookieParser());
 
 // app.post('/test', (req, res) => {
 //   console.log('Test body:', req.body);

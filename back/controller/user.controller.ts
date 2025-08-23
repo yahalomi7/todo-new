@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../schema/user.schema.js'; 
+import {hashPassword} from '../bcrypt.js'
 
 export const getUser = async (req:Request, res:Response) :Promise<any> => {
   try {
@@ -27,7 +28,6 @@ export const getUserById = async (req:Request, res:Response) :Promise<any> => {
 export const addUser = async (req:Request, res:Response) :Promise<any> => {
   const { username,email, password } = req.body;
   console.log('Incoming body:', req.body);
-
   if (!username ) {
     return res.status(400).json({ message: 'Username is required' });
   }
@@ -39,7 +39,7 @@ export const addUser = async (req:Request, res:Response) :Promise<any> => {
   if (!password || password.length < 6) {
     return res.status(400).json({ message: 'Password must be at least 6 characters long' });
   }
-
+ const hashedPassword = await hashPassword(password);
   try {
   const existingUser = await User.findOne({
   $or: [
@@ -52,7 +52,7 @@ export const addUser = async (req:Request, res:Response) :Promise<any> => {
       return res.status(409).json({ message: 'Username already exists' });
     }
 
-    const newUser = new User({ username, email, password });
+    const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
 
     res.status(201).json({ message: 'User added successfully', user: newUser });
@@ -72,9 +72,10 @@ export const updateUser =async (req:Request, res:Response) :Promise<any>  => {
   if (!password || password.trim() === '' || password.length < 6) {
     return res.status(400).json({ message: 'Password must be at least 6 characters long' });
   }
+  const hashedPassword = await hashPassword(password);
     try {
         const updatedUser = await User.findByIdAndUpdate(
-        id, { username, email, password }, { new: true });
+        id, { username, email, password:hashedPassword }, { new: true });
         if (!updatedUser) {
           return res.status(404).json({ message: 'User not found' });
         }
