@@ -16,10 +16,6 @@ const port= process.env.PORT || 8080;
 app.use(express.json());
 app.use(cookieParser());
 
-// app.post('/test', (req, res) => {
-//   console.log('Test body:', req.body);
-//   res.send(req.body);
-// });
 app.use(cors({
   origin: 'http://localhost:5173'
 }));

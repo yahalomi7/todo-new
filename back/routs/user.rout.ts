@@ -5,14 +5,21 @@ import  {
   addUser,
   updateUser,
   deleteUser
-} from '../controller/user.controller.ts';
+} from '../controller/user.controller';
+import { loginUser } from '../controller/login.controller';
+import {logoutUser} from '../controller/loguot.controller';
+import { authenticateJWT } from '../middlewars/checkauth';
+
 const userRout = express.Router();
 
-userRout.get('/', getUser);
-userRout.get('/:id', getUserById);
-userRout.post('/', addUser);
-userRout.patch('/:id', updateUser);
-userRout.delete('/:id', deleteUser);
+userRout.post('/login', loginUser);
+userRout.post('/logout', logoutUser);
+
+userRout.get('/',authenticateJWT, getUser);
+userRout.get('/:id',authenticateJWT, getUserById);
+userRout.post('/',authenticateJWT, addUser);
+userRout.patch('/:id',authenticateJWT, updateUser);
+userRout.delete('/:id',authenticateJWT, deleteUser);
 
 
 export default  userRout;

@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.updateUser = exports.addUser = exports.getUserById = exports.getUser = void 0;
 const user_schema_js_1 = __importDefault(require("../schema/user.schema.js"));
+const bcrypt_js_1 = require("../bcrypt.js");
 const getUser = async (req, res) => {
     try {
         const users = await user_schema_js_1.default.find();
@@ -41,12 +42,18 @@ const addUser = async (req, res) => {
     if (!password || password.length < 6) {
         return res.status(400).json({ message: 'Password must be at least 6 characters long' });
     }
+    const hashedPassword = await (0, bcrypt_js_1.hashPassword)(password);
     try {
-        const existingUser = await user_schema_js_1.default.findOne({ username });
+        const existingUser = await user_schema_js_1.default.findOne({
+            $or: [
+                { username },
+                { email }
+            ]
+        });
         if (existingUser) {
             return res.status(409).json({ message: 'Username already exists' });
         }
-        const newUser = new user_schema_js_1.default({ username, email, password });
+        const newUser = new user_schema_js_1.default({ username, email, password: hashedPassword });
         await newUser.save();
         res.status(201).json({ message: 'User added successfully', user: newUser });
     }
@@ -67,8 +74,9 @@ const updateUser = async (req, res) => {
     if (!password || password.trim() === '' || password.length < 6) {
         return res.status(400).json({ message: 'Password must be at least 6 characters long' });
     }
+    const hashedPassword = await (0, bcrypt_js_1.hashPassword)(password);
     try {
-        const updatedUser = await user_schema_js_1.default.findByIdAndUpdate(id, { username, email, password }, { new: true });
+        const updatedUser = await user_schema_js_1.default.findByIdAndUpdate(id, { username, email, password: hashedPassword }, { new: true });
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
         }
