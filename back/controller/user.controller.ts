@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../schema/user.schema.js'; 
 import {hashPassword} from '../bcrypt.js'
+import { generateToken } from '../utils/jwt.js';
 
 export const getUser = async (req:Request, res:Response) :Promise<any> => {
   try {
@@ -27,7 +28,7 @@ export const getUserById = async (req:Request, res:Response) :Promise<any> => {
 
 export const addUser = async (req:Request, res:Response) :Promise<any> => {
   const { username,email, password } = req.body;
-  console.log('Incoming body:', req.body);
+
   if (!username ) {
     return res.status(400).json({ message: 'Username is required' });
   }
@@ -54,6 +55,16 @@ export const addUser = async (req:Request, res:Response) :Promise<any> => {
 
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
+     const token = generateToken({
+          userId: newUser._id.toString(),
+          username: newUser.username,
+        });
+    
+        res.cookie('token', token, {
+          httpOnly: true,
+          sameSite: 'strict',
+          maxAge: 3600000,
+        });
 
     res.status(201).json({ message: 'User added successfully', user: newUser });
   } catch (err: any) {

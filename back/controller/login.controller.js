@@ -11,18 +11,22 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await user_schema_1.default.findOne({ email });
-        if (!user)
+        if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
+        }
         const isMatch = await bcrypt_1.default.compare(password, user.password);
-        if (!isMatch)
+        if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
-        const token = (0, jwt_1.generateToken)({ userId: user._id, username: user.username });
-        // Set cookie
+        }
+        const token = (0, jwt_1.generateToken)({
+            userId: user._id.toString(),
+            username: user.username,
+        });
         res.cookie('token', token, {
-            httpOnly: true, // Protects from XSS
-            secure: process.env.NODE_ENV === 'production', // only https in prod
-            sameSite: 'strict', // CSRF protection
-            maxAge: 3600000 // 1 hour in ms
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 3600000,
         });
         res.status(200).json({ message: 'Login successful' });
     }

@@ -11,15 +11,15 @@ import {logoutUser} from '../controller/loguot.controller';
 import { authenticateJWT } from '../middlewars/checkauth';
 
 const userRout = express.Router();
-
+userRout.get('/',authenticateJWT, getUser);
+userRout.get('/:id',authenticateJWT, getUserById);
+userRout.post('/', addUser);
+userRout.patch('/:id',authenticateJWT, updateUser);
+userRout.delete('/:id',authenticateJWT, deleteUser);
 userRout.post('/login', loginUser);
 userRout.post('/logout', logoutUser);
 
-userRout.get('/',authenticateJWT, getUser);
-userRout.get('/:id',authenticateJWT, getUserById);
-userRout.post('/',authenticateJWT, addUser);
-userRout.patch('/:id',authenticateJWT, updateUser);
-userRout.delete('/:id',authenticateJWT, deleteUser);
+
 
 
 export default  userRout;

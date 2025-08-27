@@ -16,12 +16,9 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 8080;
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-// app.post('/test', (req, res) => {
-//   console.log('Test body:', req.body);
-//   res.send(req.body);
-// });
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:5173'
+    origin: 'http://localhost:5173',
+    credentials: true
 }));
 app.use('/api/users', user_rout_1.default);
 app.use('/api/todo', todo_rout_1.default);
