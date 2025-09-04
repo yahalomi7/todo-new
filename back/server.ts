@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './dbConnection';
-import userRout from './routs/user.rout';
-import todoRout from './routs/todo.rout';
+import userRoute from './routers/user.route';
+import todoRoute from './routers/todo.route';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
@@ -21,8 +21,8 @@ app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true
 }));
-app.use('/api/users', userRout);
-app.use('/api/todo', todoRout);
+app.use('/api/users', userRoute);
+app.use('/api/todo', todoRoute);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

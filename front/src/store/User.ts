@@ -2,16 +2,17 @@ import axios from "axios";
 
 export interface User {
     _id: string;
-    username: string;
+    username?: string;
     email: string;
     password: string; 
 }
 
 const api = axios.create({
     baseURL: "http://localhost:8080/api/users",
+    withCredentials: true,
 });
 
-export const registerUser = async (userData: Omit<User, 'id'>): Promise<User> => {
+export const registerUser = async (userData: Omit<User, '_id'>): Promise<User> => {
     try {
         const response = await api.post<User>("/", userData);
         if (response.status === 201) {
@@ -23,3 +24,27 @@ export const registerUser = async (userData: Omit<User, 'id'>): Promise<User> =>
         throw err;
     }
 };
+export const loginUser = async (email: string, password: string): Promise<User> => {
+  try {
+    const response = await api.post<User>("/login", { email, password });
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`Login failed, status code: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Login failed:", error);
+    throw error;
+  }
+};
+export const logoutUser = async (): Promise<void> => {
+    try {
+        const response = await api.post("/logout");
+        if (response.status !== 200) {
+            throw new Error(`Failed to logout, status code: ${response.status}`);
+        }
+    } catch (err) {
+        console.error("Error logging out:", err);
+        throw err;
+    }
+};  

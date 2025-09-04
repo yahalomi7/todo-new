@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import User from '../schema/user.schema.js'; 
-import {hashPassword} from '../bcrypt.js'
-import { generateToken } from '../utils/jwt.js';
+import User from '../schema/user.schema'; 
+import {hashPassword} from '../bcrypt'
+import { generateToken } from '../utils/jwt';
 
 export const getUser = async (req:Request, res:Response) :Promise<any> => {
   try {
