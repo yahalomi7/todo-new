@@ -1,15 +1,15 @@
-import React from 'react'
+import {useEffect,useState}from 'react'
 import { Container } from '@mui/material';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar.tsx';
+import NavbarAuth from '../components/NavbarAuth';
 import { fetchingallTodos, deleteTodo} from '../store/Todo'; 
 import type { Todo } from '../store/Todo.ts' 
 import { MdDelete } from "react-icons/md";
 
-
 export default function HomePage() {
-  const [todos, setTodos] = React.useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchTodos = async () => {
       try {
         const fetchedTodos = await fetchingallTodos();
@@ -21,6 +21,7 @@ export default function HomePage() {
     fetchTodos();
   }, []);
 
+
   const handleDelete = async (id: string) => {
     try {
       await deleteTodo(id);
@@ -31,7 +32,7 @@ export default function HomePage() {
   };
   return (
     <>
-    <Navbar />
+    <NavbarAuth />
     <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
       <h1>{todos.length===0?`insert new todos`:`The todos there left`}</h1>
            <ul >

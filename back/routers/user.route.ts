@@ -1,4 +1,8 @@
 import express from 'express';
+import { loginUser } from '../controller/login.controller';
+import {logoutUser} from '../controller/loguot.controller';
+import { authenticateJWT } from '../middlewars/checkauth';
+
 import  {
   getUser,
   getUserById,
@@ -6,9 +10,6 @@ import  {
   updateUser,
   deleteUser
 } from '../controller/user.controller';
-import { loginUser } from '../controller/login.controller';
-import {logoutUser} from '../controller/loguot.controller';
-import { authenticateJWT } from '../middlewars/checkauth';
 
 const userRoute = express.Router();
 userRoute.get('/',authenticateJWT, getUser);

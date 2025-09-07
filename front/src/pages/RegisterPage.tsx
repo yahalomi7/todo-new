@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, TextField, Button } from '@mui/material';
 import Navbar from '../components/Navbar';
 import { registerUser } from '../store/User';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
   const handleRegister = async () => {
     try {
       const newUser = await registerUser({ username, email, password });
-      console.log("User registered successfully:", newUser);
-      // Optionally redirect or show success message here
+      if (newUser) {
+        console.log('Registration successful:', newUser);
+
+        toast.success('🎉 Registration successful!', {
+          autoClose: 3000,
+        });
+
+        // ⏳ add small delay so toast renders before redirect
+        setTimeout(() => navigate("/"), 300);
+      }
     } catch (error) {
-      console.error("Registration failed:", error);
+      console.error('Login failed:', error);
+
+      toast.error('❌ Login failed. Please try again.', {
+        autoClose: 3000,
+      });
     }
   };
 

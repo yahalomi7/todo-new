@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, TextField, Button } from '@mui/material';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar.tsx';
 import { createTodo } from '../store/Todo';
 import type { Todo } from '../store/Todo.ts';
 

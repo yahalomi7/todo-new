@@ -12,18 +12,19 @@ const api = axios.create({
     withCredentials: true,
 });
 
-export const registerUser = async (userData: Omit<User, '_id'>): Promise<User> => {
-    try {
-        const response = await api.post<User>("/", userData);
-        if (response.status === 201) {
-            return response.data;
-        }
-        throw new Error(`Failed to register user, status code: ${response.status}`);
-    } catch (err) {
-        console.error("Error registering user:", err);
-        throw err;
+export const registerUser = async (userData: { username: string; email: string; password: string; }): Promise<User> => {
+  try {
+    const response = await api.post<User>("/register", userData);
+    if (response.status === 201) {
+      return response.data;
     }
+    throw new Error(`Failed to register user, status code: ${response.status}`);
+  } catch (err) {
+    console.error("Error registering user:", err);
+    throw err;
+  }
 };
+
 export const loginUser = async (email: string, password: string): Promise<User> => {
   try {
     const response = await api.post<User>("/login", { email, password });
@@ -48,3 +49,15 @@ export const logoutUser = async (): Promise<void> => {
         throw err;
     }
 };  
+export const updateUser = async (id: string, userData: { username: string; password: string; }): Promise<User> => {
+    try {
+        const response = await api.patch<User>(`/${id}`, userData);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error(`Failed to update user, status code: ${response.status}`);
+    } catch (err) {
+        console.error("Error updating user:", err);
+        throw err;
+    }
+};
